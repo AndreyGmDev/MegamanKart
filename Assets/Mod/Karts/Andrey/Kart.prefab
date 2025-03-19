@@ -440,7 +440,7 @@ MonoBehaviour:
   maxSteeringAngle: 45
   frontLeftWheel:
     wheelTransform: {fileID: 2137992437020971452}
-    axelAxis: {x: 1, y: 0, z: 0}
+    axelAxis: {x: -1, y: 0, z: 0}
     steeringAxis: {x: 0, y: 1, z: 0}
   frontRightWheel:
     wheelTransform: {fileID: 3790063408005371629}
