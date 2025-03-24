@@ -13,14 +13,23 @@ public class PlayerPowers : MonoBehaviour
     [SerializeField] Transform backSpawn;
 
     [Header("Powers Prefab")]
-    [SerializeField] GameObject napalm; // Poderes lançados.
-    
-    
+    [SerializeField] GameObject napalm; // Poder Napalm.
+    [SerializeField] GameObject piao; // Poder Pìão.
 
-    int numberOfPowers = 2; // Número total de poderes.
+    ArcadeKart arcadeKart;
+
+    int numberOfPowers = 3; // Número total de poderes.
     int selectPower; // Número do poder selecionado.
     bool turnOn = false;
-
+    float initialSpeed;
+    private void Start()
+    {
+        if (GetComponent<ArcadeKart>() != null)
+        {
+            arcadeKart = GetComponent<ArcadeKart>();
+            initialSpeed = arcadeKart.baseStats.TopSpeed;
+        }
+    }
     // Ativado quando player pega o coletável no cenário.
     void OnEnable()
     {
@@ -35,20 +44,25 @@ public class PlayerPowers : MonoBehaviour
         // Ativa o poder.
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            GameObject obj;
+
             // Seleciona o poder.
             switch (selectPower)
             {
                 case 0:
+                    StopCoroutine("IncressSpeed");
                     StartCoroutine("IncressSpeed");
                     print("Speed");
                     break;
                 case 1:
-                    GameObject obj = Instantiate(napalm, backSpawn.transform.position, Quaternion.identity);
+                    obj = Instantiate(napalm, frontSpawn.transform.position, Quaternion.identity);
                     obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
                     print("napalm");
                     break;
                 case 2:
-
+                    obj = Instantiate(piao, backSpawn.transform.position, Quaternion.identity);
+                    obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, -transform.eulerAngles.y, transform.eulerAngles.z);
+                    print("piao");
                     break;
                 case 3:
 
@@ -64,25 +78,25 @@ public class PlayerPowers : MonoBehaviour
            enabled = false;
         }
     }
-
+    
     IEnumerator IncressSpeed()
     {
         if (GetComponent<ArcadeKart>() != null)
         {
-            ArcadeKart arcadeKart = GetComponent<ArcadeKart>();
-            arcadeKart.baseStats.TopSpeed *= 1.3f;
+            arcadeKart.baseStats.TopSpeed = 1.3f * initialSpeed;
 
             yield return new WaitForSeconds(5);
 
-            arcadeKart.baseStats.TopSpeed = 15f;
+            arcadeKart.baseStats.TopSpeed = initialSpeed;
         }
-
+        
         enabled = false; // Desativa o código esperando a próxima ativação.
     }
 
-    void InstantiatePower(GameObject power, Transform transform)
+    void InstantiatePower(GameObject power, GameObject spawnObject)
     {
-        Instantiate(power, transform.parent.position, Quaternion.identity);
+        GameObject obj = Instantiate(power, spawnObject.transform.position, Quaternion.identity);
+        obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
     }
     
 }

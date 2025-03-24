@@ -1,36 +1,32 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
-public class Napalm : MonoBehaviour
+public class Piao : MonoBehaviour
 {
-    [SerializeField] float speed;
-
     GameObject player;
-    Rigidbody rigidbody;
-    Vector3 forward;
     bool canTurn = false;
-
+    bool canScale = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
-        StartCoroutine("Disappear");
-        forward = new Vector3(0,0,1f);
-        print(forward);
+        StartCoroutine("IncressScale");
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate (forward * Time.fixedDeltaTime * speed);
-        //transform.Rotate(0f, 0f, -30f * Time.fixedDeltaTime);
+        transform.Rotate(0, 360f * Time.fixedDeltaTime, 0);
+
         if (canTurn)
             player.GetComponent<Transform>().Rotate(0, 720 * Time.fixedDeltaTime, 0);
+
+        if (canScale)
+            GetComponent<Transform>().transform.localScale += new Vector3(0.4f, 0.4f, 0.4f) * Time.fixedDeltaTime;
     }
 
-    
+
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -52,7 +48,7 @@ public class Napalm : MonoBehaviour
         foreach (var cld in GetComponents<Collider>())
             cld.enabled = false;
 
-        
+
         collision.GetComponent<Rigidbody>().isKinematic = true; // Desativa a movimentação do player acertado.
         canTurn = true; // Faz o player acertado ficar girando.
 
@@ -66,17 +62,16 @@ public class Napalm : MonoBehaviour
         Destroy(gameObject); // Destrói o objeto depois de colidir.
     }
 
-    
-    IEnumerator Disappear()
+    IEnumerator IncressScale()
     {
-        yield return new WaitForSeconds(5f);
+        float timer = 0;
+        canScale = true;
+        while (timer < 1)
+        {   
+            timer += Time.deltaTime;
+            yield return new WaitForNextFrameUnit();
+        }
 
-        // Desativa os colliders pro objeto cair 5 segundos depois de ser criado.
-        foreach (var cld in GetComponents<Collider>())
-           cld.enabled = false;
-
-        yield return new WaitForSeconds(2f);
-
-        Destroy(gameObject); // Destrói o objeto 7 segundos depois de ser criado.
+        canScale = false;
     }
 }
