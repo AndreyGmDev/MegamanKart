@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 89e228c5f6aa92d47800a3283623d19a
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - frontSpawn: {instanceID: 0}
+  - leftSpawn: {instanceID: 0}
+  - rightSpawn: {instanceID: 0}
+  - backSpawn: {instanceID: 0}
+  - napalm: {fileID: 8353591707020432107, guid: f703dc9b0111da445b34de20546538df,
+      type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
