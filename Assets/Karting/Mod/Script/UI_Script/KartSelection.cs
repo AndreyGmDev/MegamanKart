@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(KartInfos))]
 public class KartSelection : MonoBehaviour
 {
     [SerializeField] Button nextKartP1;
@@ -13,7 +14,7 @@ public class KartSelection : MonoBehaviour
 
     [SerializeField] GameObject[] kartsP1;
     [SerializeField] GameObject[] kartsP2;
-    [SerializeField] GameObject[] realKart;
+    public GameObject[] realKart;
 
     [SerializeField] Image readyP1;
     [SerializeField] Image readyP2;
@@ -23,14 +24,15 @@ public class KartSelection : MonoBehaviour
     Vector2 letsGoPosition1 = new Vector2(-1442, 0);
     Vector2 letsGoPosition2 = new Vector2(1442, 0);
 
-    int kartSelectedP1 = 1;
-    int kartSelectedP2 = 1;
+    [HideInInspector] public int kartSelectedP1 = 1;
+    [HideInInspector] public int kartSelectedP2 = 1;
 
     bool passScene;
 
     [Header("ScriptableObject")]
     [SerializeField] KartSelected kartSelected;
 
+    KartInfos kartInfos;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -40,6 +42,11 @@ public class KartSelection : MonoBehaviour
         previousKartP2.onClick.AddListener(() => ChangeKartP2("Previous"));
         InteractButtonP1();
         InteractButtonP2();
+    }
+
+    private void Start()
+    {
+        kartInfos = GetComponent<KartInfos>();
     }
 
     // Seleciona o kart do P1.
@@ -54,6 +61,9 @@ public class KartSelection : MonoBehaviour
 
         // Chama a função de conferir se o botão ainda é interativo.
         InteractButtonP1();
+
+        // Troca o valor das informações do kartP1 na UI.
+        kartInfos.ChangeValue();
     }
 
     // Mostra o kart do P1 selecionado.
@@ -84,6 +94,9 @@ public class KartSelection : MonoBehaviour
 
         // Chama a função de conferir se o botão ainda é interativo.
         InteractButtonP2();
+
+        // Troca o valor das informações do kartP2 na UI.
+        kartInfos.ChangeValue();
     }
 
     // Mostra o kart do P2 selecionado.
@@ -118,8 +131,17 @@ public class KartSelection : MonoBehaviour
 
     private void Update()
     {
-        if (passScene) return;
+        // Para o funcionamento de qualquer Input quando a animação de passar de cena começar.
+        if (letsGo1.enabled && letsGo2.enabled) return;
 
+        // Inputs Gerais.
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            // Volta para o menu.
+            SceneManager.LoadScene("IntroMenu");
+        }
+
+        // Inputs P1.
         if (Input.GetKeyDown(KeyCode.Space))
         {
             if (readyP1.enabled)
@@ -141,6 +163,7 @@ public class KartSelection : MonoBehaviour
             }
         }
 
+        // Inputs P2.
         if (Input.GetKeyDown(KeyCode.Backspace))
         {
             if (readyP2.enabled)
@@ -160,8 +183,10 @@ public class KartSelection : MonoBehaviour
                 // Ativa a imagem do readyP2.
                 readyP2.enabled = true;
             }
+
         }
 
+        // Chama a coroutine de passar de cena quando os dois karts forem selecionados.
         if (readyP1.enabled && readyP2.enabled)
         {
             StartCoroutine("GoingToLevel");
