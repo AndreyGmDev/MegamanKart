@@ -23,7 +23,7 @@ public class Piao : MonoBehaviour
             player.GetComponent<Transform>().Rotate(0, 720 * Time.fixedDeltaTime, 0);
 
         if (canScale)
-            GetComponent<Transform>().transform.localScale += new Vector3(1, 1, 1) * Time.fixedDeltaTime * 0.4f;
+            GetComponent<Transform>().transform.localScale += new Vector3(1, 1, 1) * Time.fixedDeltaTime * 0.6f;
     }
 
 
@@ -32,7 +32,6 @@ public class Piao : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            print("afeta");
             StartCoroutine("Effect", collision);
         }
     }
@@ -42,13 +41,12 @@ public class Piao : MonoBehaviour
         player = collision.gameObject;
 
         // Ativa o som.
-        GetComponent<AudioSource>().enabled = true;
+        //GetComponent<AudioSource>().enabled = true;
 
         // Desativa o objeto.
         GetComponent<MeshRenderer>().enabled = false;
         foreach (var cld in GetComponents<Collider>())
             cld.enabled = false;
-
 
         collision.GetComponent<Rigidbody>().isKinematic = true; // Desativa a movimentação do player acertado.
         canTurn = true; // Faz o player acertado ficar girando.
@@ -67,7 +65,7 @@ public class Piao : MonoBehaviour
     {
         float timer = 0;
         canScale = true;
-        while (timer < 0.25f)
+        while (timer < 0.35f)
         {   
             timer += Time.deltaTime;
             yield return new WaitForNextFrameUnit();
