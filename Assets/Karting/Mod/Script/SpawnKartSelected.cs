@@ -11,6 +11,8 @@ public class SpawnKartSelected : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        if (kartSelected.P1 == null || kartSelected.P2 == null) return;
+
         // Pega os karts da cena de seleção.
         kartP1 = kartSelected.P1;
         kartP2 = kartSelected.P2;

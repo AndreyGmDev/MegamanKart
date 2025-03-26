@@ -20,7 +20,6 @@ public class PlayerPowers : MonoBehaviour
 
     int numberOfPowers = 3; // Número total de poderes.
     int selectPower; // Número do poder selecionado.
-    bool turnOn = false;
     float initialSpeed;
     private void Start()
     {
@@ -35,7 +34,6 @@ public class PlayerPowers : MonoBehaviour
     {
         // Randomiza um poder.
         selectPower = Random.Range(0, numberOfPowers);
-        turnOn = true;
     }
 
     
@@ -61,7 +59,7 @@ public class PlayerPowers : MonoBehaviour
                     break;
                 case 2:
                     obj = Instantiate(piao, backSpawn.transform.position, Quaternion.identity);
-                    obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, -transform.eulerAngles.y, transform.eulerAngles.z);
+                    obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
                     print("piao");
                     break;
                 case 3:

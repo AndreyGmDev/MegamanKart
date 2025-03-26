@@ -1,21 +1,23 @@
 using System.Collections;
+using KartGame.KartSystems;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 public class Napalm : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [Header("Habilities")]
+    [SerializeField] float speed = 20;
+    [SerializeField] float kartRotation = 720;
+    [SerializeField] float timerRotation = 1;
 
     GameObject player;
-    Rigidbody rigidbody;
     Vector3 forward;
     bool canTurn = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
         StartCoroutine("Disappear");
         forward = new Vector3(0,0,1f);
         print(forward);
@@ -27,7 +29,7 @@ public class Napalm : MonoBehaviour
         transform.Translate (forward * Time.fixedDeltaTime * speed);
         //transform.Rotate(0f, 0f, -30f * Time.fixedDeltaTime);
         if (canTurn)
-            player.GetComponent<Transform>().Rotate(0, 720 * Time.fixedDeltaTime, 0);
+            player.GetComponent<Transform>().Rotate(0, kartRotation * Time.fixedDeltaTime, 0);
     }
 
     
@@ -52,14 +54,14 @@ public class Napalm : MonoBehaviour
         foreach (var cld in GetComponents<Collider>())
             cld.enabled = false;
 
-        
-        collision.GetComponent<Rigidbody>().isKinematic = true; // Desativa a movimentação do player acertado.
+
+        collision.GetComponent<ArcadeKart>().enabled = false; // Desativa a movimentação do player acertado.
         canTurn = true; // Faz o player acertado ficar girando.
 
-        yield return new WaitForSeconds(1f); // Tempo do player acertado fica girando.
+        yield return new WaitForSeconds(timerRotation); // Tempo do player acertado fica girando.
 
-        collision.GetComponent<Rigidbody>().isKinematic = false;
         canTurn = false;
+        collision.GetComponent<ArcadeKart>().enabled = true; // Ativa a movimentação do player novamente.
 
         yield return new WaitForSeconds(2f); // Espera o som terminar de tocar.
 
