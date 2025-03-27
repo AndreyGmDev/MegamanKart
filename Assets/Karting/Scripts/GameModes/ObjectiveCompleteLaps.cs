@@ -12,18 +12,20 @@ public class ObjectiveCompleteLaps : Objective
     [Tooltip("Start sending notification about remaining laps when this amount of laps is left")]
     public int notificationLapsRemainingThreshold = 1;
 
-
+    
     
     public int currentLap { get; private set; }
+    public int currentLapP2 { get; private set; }
 
+    
     void Awake()
     {
         currentLap = 0;
-        
+        currentLapP2 = 0;
+
         // set a title and description specific for this type of objective, if it hasn't one
         if (string.IsNullOrEmpty(title))
             title = $"Complete {lapsToComplete} {targetName}s";
-        
     }
 
     IEnumerator Start()
@@ -40,12 +42,13 @@ public class ObjectiveCompleteLaps : Objective
         if (isCompleted)
             return;
 
-        currentLap++;
+        currentLap--;
+        currentLapP2++;
 
         int targetRemaining = lapsToComplete - currentLap;
-
+        int targetRemainingP2 = lapsToComplete - currentLapP2;
         // update the objective text according to how many enemies remain to kill
-        if (targetRemaining == 0)
+        if (targetRemaining == 0 || targetRemainingP2 == 0)
         {
             CompleteObjective(string.Empty, GetUpdatedCounterAmount(),
                 "Objective complete: " + title);

@@ -220,10 +220,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89e228c5f6aa92d47800a3283623d19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontSpawn: {fileID: 0}
+  frontSpawn: {fileID: 5289262089945404091}
   leftSpawn: {fileID: 0}
   rightSpawn: {fileID: 0}
-  backSpawn: {fileID: 0}
+  backSpawn: {fileID: 3640190424560135477}
   napalm: {fileID: 8353591707020432107, guid: f703dc9b0111da445b34de20546538df, type: 3}
   piao: {fileID: 5380089327457348584, guid: 975bea3869fdc5b468135de0fa3fd97c, type: 3}
 --- !u!114 &8876279958151330855

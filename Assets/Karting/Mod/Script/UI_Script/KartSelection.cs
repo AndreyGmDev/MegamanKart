@@ -205,7 +205,6 @@ public class KartSelection : MonoBehaviour
             letsGoPosition1 += new Vector2(1, 0) * Time.fixedDeltaTime * 3500;
             letsGoPosition1 = new Vector2(Mathf.Clamp(letsGoPosition1.x, -1442, -479), 0);
             letsGo1.GetComponent<RectTransform>().localPosition = letsGoPosition1;
-            print(letsGoPosition1);
 
             letsGoPosition2 += new Vector2(-1, 0) * Time.fixedDeltaTime * 3500;
             letsGoPosition2 = new Vector2(Mathf.Clamp(letsGoPosition2.x,479, 1442), 0);

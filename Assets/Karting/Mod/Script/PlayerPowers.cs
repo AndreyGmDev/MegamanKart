@@ -16,11 +16,15 @@ public class PlayerPowers : MonoBehaviour
     [SerializeField] GameObject napalm; // Poder Napalm.
     [SerializeField] GameObject piao; // Poder Pìão.
 
+    [Header("Input")]
+    public string inputToUsePower;
+
     ArcadeKart arcadeKart;
 
-    int numberOfPowers = 3; // Número total de poderes.
+    const int numberOfPowers = 3; // Número total de poderes.
     int selectPower; // Número do poder selecionado.
     float initialSpeed;
+    
     private void Start()
     {
         if (GetComponent<ArcadeKart>() != null)
@@ -40,7 +44,7 @@ public class PlayerPowers : MonoBehaviour
     private void Update()
     {
         // Ativa o poder.
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown(inputToUsePower))
         {
             GameObject obj;
 
