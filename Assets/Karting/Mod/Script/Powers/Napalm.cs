@@ -20,7 +20,6 @@ public class Napalm : MonoBehaviour
     {
         StartCoroutine("Disappear");
         forward = new Vector3(0,0,1f);
-        print(forward);
     }
 
     // Update is called once per frame

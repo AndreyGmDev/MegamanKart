@@ -16,6 +16,7 @@ public class CountLaps : MonoBehaviour
     {
         if (!other.CompareTag("Player"))
             return;
+        if (!other.isTrigger) return;
 
         raceObjectives.CountLapsPerPlayer(other.gameObject);
     }

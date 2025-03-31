@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e42c4bbbe5e7ef944a66c34ffeb213b2, type: 3}
   m_Name: KartSelected
   m_EditorClassIdentifier: 
-  P1: {fileID: 0}
-  P2: {fileID: 0}
+  P1: {fileID: 3892209642750552132, guid: 86b8100e59bec3440b0c9b3fbe725c13, type: 3}
+  P2: {fileID: 3892209642750552132, guid: 86b8100e59bec3440b0c9b3fbe725c13, type: 3}

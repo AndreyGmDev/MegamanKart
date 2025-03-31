@@ -226,7 +226,7 @@ public class KartSelection : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        SceneManager.LoadScene("MegamanKart");
+        SceneManager.LoadScene("LavaMap");
     }
 
 }

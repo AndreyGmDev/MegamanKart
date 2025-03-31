@@ -52,8 +52,8 @@ public class PlayerPowers : MonoBehaviour
             switch (selectPower)
             {
                 case 0:
-                    StopCoroutine("IncressSpeed");
-                    StartCoroutine("IncressSpeed");
+                    StopCoroutine("IncressSpeed"); // Para todas a coroutine IncressSpeed anterior, se houver, para evitar interromper na nova.
+                    StartCoroutine("IncressSpeed"); // Inicia coroutine de aumentar velocidade do Player.
                     print("Speed");
                     break;
                 case 1:
@@ -100,5 +100,43 @@ public class PlayerPowers : MonoBehaviour
         GameObject obj = Instantiate(power, spawnObject.transform.position, Quaternion.identity);
         obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
     }
-    
+
+    //GameObject[] players;
+    //RaceObjectives raceObjectives = FindAnyObjectByType<RaceObjectives>();
+    /*IEnumerator Flashing()
+    {
+        *//*if (raceObjectives != null) yield return null;
+
+        var n = 1;
+
+        if (!(gameObject.name == "P1") && raceObjectives.currentLapsP1 < raceObjectives.currentLapsP2)
+        {
+            = n;
+        }
+        else if (!(gameObject.name == "P2"))
+        {
+
+        }
+
+        for (int i = 0; i < n; i++)
+        {
+            if (!GameObject.Find("P" + n))
+                break;
+
+            players[i] = GameObject.Find("P" + n);
+            n++;
+            i++;
+
+            yield return new WaitForNextFrameUnit();
+        }
+
+
+        foreach (var player in players)
+        {
+            if (player == this.gameObject) yield return null;
+
+            player.gameObject
+        }*//*
+        
+    }*/
 }
