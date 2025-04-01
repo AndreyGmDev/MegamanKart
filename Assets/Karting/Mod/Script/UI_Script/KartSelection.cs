@@ -7,15 +7,18 @@ using UnityEngine.UI;
 [RequireComponent(typeof(KartInfos))]
 public class KartSelection : MonoBehaviour
 {
+    [Header("Buttons")]
     [SerializeField] Button nextKartP1;
     [SerializeField] Button previousKartP1;
     [SerializeField] Button nextKartP2;
     [SerializeField] Button previousKartP2;
 
+    [Header("GameObjects")]
     [SerializeField] GameObject[] kartsP1;
     [SerializeField] GameObject[] kartsP2;
     public GameObject[] realKart;
 
+    [Header("Images")]
     [SerializeField] Image readyP1;
     [SerializeField] Image readyP2;
     [SerializeField] Image letsGo1;
@@ -31,6 +34,9 @@ public class KartSelection : MonoBehaviour
 
     [Header("ScriptableObject")]
     [SerializeField] KartSelected kartSelected;
+
+    [Header("Canvas")]
+    [SerializeField] GameObject mapSelectionInterface;
 
     KartInfos kartInfos;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -131,8 +137,11 @@ public class KartSelection : MonoBehaviour
 
     private void Update()
     {
-        // Para o funcionamento de qualquer Input quando a animação de passar de cena começar.
-        if (letsGo1.enabled && letsGo2.enabled) return;
+        if (readyP1.enabled && readyP2.enabled)
+        {
+            StartCoroutine("MapSelection"); // Chama a coroutine de MapSelection.
+            return; // Para o funcionamento de qualquer Input.
+        }
 
         // Inputs Gerais.
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -185,12 +194,6 @@ public class KartSelection : MonoBehaviour
             }
 
         }
-
-        // Chama a coroutine de passar de cena quando os dois karts forem selecionados.
-        if (readyP1.enabled && readyP2.enabled)
-        {
-            StartCoroutine("GoingToLevel");
-        }
     }
     private void FixedUpdate()
     {
@@ -229,4 +232,14 @@ public class KartSelection : MonoBehaviour
         SceneManager.LoadScene("LavaMap");
     }
 
+    IEnumerator MapSelection()
+    {
+        kartSelected.P1 = realKart[kartSelectedP1 - 1];
+        kartSelected.P2 = realKart[kartSelectedP2 - 1];
+
+        yield return new WaitForSeconds(0.8f);
+
+        mapSelectionInterface.SetActive(true);
+        gameObject.SetActive(false);
+    }
 }
