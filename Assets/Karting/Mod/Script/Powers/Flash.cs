@@ -1,16 +1,21 @@
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Flash : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] Image flashImage; // Referência do Flash.
+    [HideInInspector] public float timeFlashed; // Tempo do Flash ativo.
+    
+    private void Update()
     {
-        
-    }
+        // Deixa o player cego enquanto timeFlashed > 0.
+        if (timeFlashed > 0)
+            flashImage.enabled = true;
+        else
+            flashImage.enabled = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        timeFlashed -= Time.deltaTime;
     }
+    
 }

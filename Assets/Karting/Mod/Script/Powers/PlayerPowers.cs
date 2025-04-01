@@ -1,8 +1,13 @@
 using KartGame.KartSystems;
+using NUnit.Framework.Internal;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPowers : MonoBehaviour
 {
@@ -15,16 +20,18 @@ public class PlayerPowers : MonoBehaviour
     [Header("Powers Prefab")]
     [SerializeField] GameObject napalm; // Poder Napalm.
     [SerializeField] GameObject piao; // Poder Pìão.
+    [SerializeField] GameObject oil; // Poder Oil.
 
     [Header("Input")]
     public string inputToUsePower;
 
     ArcadeKart arcadeKart;
-
-    const int numberOfPowers = 3; // Número total de poderes.
-    int selectPower; // Número do poder selecionado.
-    float initialSpeed;
+    RaceObjectives raceObjectives;
+    [SerializeField] Flash[] flash = new Flash[2];
     
+    const int numberOfPowers = 4; // Número total de poderes.
+    int selectPower; // Número do poder selecionado.
+    [HideInInspector] public float initialSpeed;
     private void Start()
     {
         if (GetComponent<ArcadeKart>() != null)
@@ -32,12 +39,22 @@ public class PlayerPowers : MonoBehaviour
             arcadeKart = GetComponent<ArcadeKart>();
             initialSpeed = arcadeKart.baseStats.TopSpeed;
         }
+
+        raceObjectives = FindAnyObjectByType<RaceObjectives>();
+
+        for (int i = 0; i < flash.Length; i++)
+        {
+            flash[i] = GameObject.Find("InterfaceP" + (i+1)).GetComponent<Flash>();
+        }
+        
     }
+
     // Ativado quando player pega o coletável no cenário.
     void OnEnable()
     {
         // Randomiza um poder.
-        selectPower = Random.Range(0, numberOfPowers);
+        selectPower = UnityEngine.Random.Range(0, numberOfPowers);
+        //selectPower = 3;
     }
 
     
@@ -67,10 +84,13 @@ public class PlayerPowers : MonoBehaviour
                     print("piao");
                     break;
                 case 3:
-
+                    Flashing();
+                    print("Flashing");
                     break;
                 case 4:
-
+                    /*obj = Instantiate(oil, backSpawn.transform.position, Quaternion.identity);
+                    obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+                    print("Oil");*/
                     break;
                 case 5:
 
@@ -80,8 +100,8 @@ public class PlayerPowers : MonoBehaviour
            enabled = false;
         }
     }
-    
-    IEnumerator IncressSpeed()
+
+    public IEnumerator IncressSpeed()
     {
         if (GetComponent<ArcadeKart>() != null)
         {
@@ -91,7 +111,7 @@ public class PlayerPowers : MonoBehaviour
 
             arcadeKart.baseStats.TopSpeed = initialSpeed;
         }
-        
+
         enabled = false; // Desativa o código esperando a próxima ativação.
     }
 
@@ -101,42 +121,17 @@ public class PlayerPowers : MonoBehaviour
         obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
     }
 
-    //GameObject[] players;
-    //RaceObjectives raceObjectives = FindAnyObjectByType<RaceObjectives>();
-    /*IEnumerator Flashing()
+    void Flashing()
     {
-        *//*if (raceObjectives != null) yield return null;
+        string playerStringNumber = Regex.Replace(gameObject.name, @"[^\d]", ""); // Retira todos os caracteres exceto números.
+        int playerNumber = (Convert.ToInt32(playerStringNumber)) - 1;
 
-        var n = 1;
-
-        if (!(gameObject.name == "P1") && raceObjectives.currentLapsP1 < raceObjectives.currentLapsP2)
+        for (int i = 0; i < raceObjectives.positions.Length; i++)
         {
-            = n;
+            if (raceObjectives.positions[i] > raceObjectives.positions[playerNumber])
+            {
+                    flash[i].timeFlashed = 5;
+            }
         }
-        else if (!(gameObject.name == "P2"))
-        {
-
-        }
-
-        for (int i = 0; i < n; i++)
-        {
-            if (!GameObject.Find("P" + n))
-                break;
-
-            players[i] = GameObject.Find("P" + n);
-            n++;
-            i++;
-
-            yield return new WaitForNextFrameUnit();
-        }
-
-
-        foreach (var player in players)
-        {
-            if (player == this.gameObject) yield return null;
-
-            player.gameObject
-        }*//*
-        
-    }*/
+    }
 }

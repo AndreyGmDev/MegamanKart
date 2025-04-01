@@ -31,7 +31,7 @@ public class PlayerWaypoint : MonoBehaviour
         {
             waypointBackup = raceObjectives.closestWaypointOfPlayer[playerNumber];
             raceObjectives.closestWaypointOfPlayer[playerNumber] = other.transform.parent.gameObject;
-            
+            print(other.transform.parent.gameObject);
         }
     }
 

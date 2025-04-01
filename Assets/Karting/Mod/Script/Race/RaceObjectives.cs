@@ -12,11 +12,8 @@ public class RaceObjectives : MonoBehaviour
 {
     [SerializeField] KartSelected kartSelected;
     [SerializeField] int lapsToComplete;
-    
-    //public int currentLapsP1 = 0;
-    //public int currentLapsP2 = 0;
 
-    [SerializeField] int[] currentLaps;
+    public int[] currentLaps;
 
     [SerializeField] Transform[] waypoints;
     [HideInInspector] public GameObject[] closestWaypointOfPlayer;
@@ -174,7 +171,7 @@ public class RaceObjectives : MonoBehaviour
 
         foreach (var lap in sortedLaps)
         {
-            var waypoints = lapsAndWaypointAndDistance[lap].Keys ;
+            var waypoints = lapsAndWaypointAndDistance[lap].Keys.OrderByDescending(x => x);
 
             foreach (var waypoint in waypoints)
             {
@@ -193,7 +190,6 @@ public class RaceObjectives : MonoBehaviour
                 {
                     playersPosition.Add((player.playerIndex, rank)); // Adiciona as posições dos jogadores.
                     rank++;
-                    print("playerindex: " + player.playerIndex);
                 }
             }
         }
