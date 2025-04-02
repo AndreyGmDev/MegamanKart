@@ -1,10 +1,12 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(CapsuleCollider))]
 public class Coletavel : MonoBehaviour
 {
-    
+    [SerializeField] float timeToReapear = 10;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -20,10 +22,18 @@ public class Coletavel : MonoBehaviour
                 power.enabled = true;
             }
 
-            GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<Coletavel>().enabled = false;  
-
-            Destroy(gameObject,2f);
+            StartCoroutine("Cooldown");
         }
+    }
+
+    IEnumerator Cooldown()
+    {
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Coletavel>().enabled = false;
+
+        yield return new WaitForSeconds(timeToReapear);
+
+        GetComponent<MeshRenderer>().enabled = true;
+        GetComponent<Coletavel>().enabled = true;
     }
 }

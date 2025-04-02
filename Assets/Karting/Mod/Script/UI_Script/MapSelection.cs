@@ -24,15 +24,8 @@ public class MapSelection : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
-        lavaMap.onClick.AddListener(() => mapSelected = "LavaMap");
-        desertMap.onClick.AddListener(() => mapSelected = "DesertMap");
-    }
-
-    // Seleciona o Mapa.
-    void ChangeMap(string map)
-    {
-       
-        
+        lavaMap.onClick.AddListener(() => StartCoroutine(GoingToLevel("LavaMap",lavaMap)));
+        //desertMap.onClick.AddListener(() => mapSelected = "");
     }
 
     void InteractButton()
@@ -49,9 +42,9 @@ public class MapSelection : MonoBehaviour
         // Chama a coroutine de passar de cena quando os dois karts forem selecionados.
         if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Backspace)) && mapSelected != null)
         {
-            InteractButton();
+            
 
-            StartCoroutine("GoingToLevel");
+            ;
         }
     }
 
@@ -69,8 +62,10 @@ public class MapSelection : MonoBehaviour
         }
     }
 
-    IEnumerator GoingToLevel()
+    IEnumerator GoingToLevel(string map, Button button)
     {
+        InteractButton();
+
         letsGo1.enabled = true;
         letsGo2.enabled = true;
 
@@ -80,7 +75,7 @@ public class MapSelection : MonoBehaviour
 
         yield return new WaitForSeconds(2);
 
-        SceneManager.LoadScene(mapSelected);
+        SceneManager.LoadScene(map);
     }
 
     
