@@ -15,7 +15,6 @@ public class RaceObjectives : MonoBehaviour
 
     public int[] currentLaps;
 
-    [SerializeField] Transform[] waypoints;
     [HideInInspector] public GameObject[] closestWaypointOfPlayer;
     [HideInInspector] public float[] distanceClosestWaypoint;
 
