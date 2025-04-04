@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 5355822153375219196}
   - component: {fileID: 5879612267896506074}
   m_Layer: 0
-  m_Name: RodrigoKart
+  m_Name: Magma Kart
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
