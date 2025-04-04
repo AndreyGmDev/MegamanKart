@@ -32,6 +32,7 @@ public class PlayerPowers : MonoBehaviour
     const int numberOfPowers = 4; // Número total de poderes.
     int selectPower; // Número do poder selecionado.
     [HideInInspector] public float initialSpeed;
+    
     private void Start()
     {
         if (GetComponent<ArcadeKart>() != null)

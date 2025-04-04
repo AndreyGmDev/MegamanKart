@@ -18,7 +18,7 @@ public class RaceObjectives : MonoBehaviour
     [HideInInspector] public GameObject[] closestWaypointOfPlayer;
     [HideInInspector] public float[] distanceClosestWaypoint;
 
-    GameObject[] players = new GameObject[2];
+    [HideInInspector] public GameObject[] players = new GameObject[2];
     [HideInInspector] public int[] positions;
     
     private void Start()
@@ -34,27 +34,21 @@ public class RaceObjectives : MonoBehaviour
             closestWaypointOfPlayer[i] = null;
         }
     }
-    public void CountLapsPerPlayer(GameObject player)
+    public void CountLapsPerPlayer(GameObject player, int value)
     {
-        if (player.name == "P1")
+        for (int i = 0; i < players.Length; i++)
         {
-            currentLaps[0]++;
-        }
-        else if (player.name == "P2")
-        {
-            currentLaps[1]++;
-        }
-        else
-            return;
+            if (player.name == "P" + (i + 1))
+            {
+                currentLaps[i] += value;
+            }
 
-        int lapsRemainingP1 = lapsToComplete - currentLaps[0];
-        int lapsRemainingP2 = lapsToComplete - currentLaps[1];
-
-        if (lapsRemainingP1 <= 0 || lapsRemainingP2 <= 0)
-        {
-            SceneManager.LoadScene("WinScene");
-        }
-        
+            int lapsRemaining = lapsToComplete - currentLaps[i];
+            if (lapsRemaining <= 0)
+            {
+                SceneManager.LoadScene("WinScene");
+            }
+        }        
     }
 
     private void Update()

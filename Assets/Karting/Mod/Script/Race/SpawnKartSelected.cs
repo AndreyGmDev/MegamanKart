@@ -26,8 +26,9 @@ public class SpawnKartSelected : MonoBehaviour
         GameObject P1 = Instantiate(kartP1,spawnPointP1.transform.position,Quaternion.Euler(0,180,0));
         GameObject P2 = Instantiate(kartP2,spawnPointP2.transform.position, Quaternion.Euler(0, 180, 0));
 
-        // Nomes são usados no Script RaceObjectives para saber as voltas dadas por cada kart.
-        P1.name = "P1"; // Altera o nome do kart do Player 1 para P1.
+        // Nomes são usados no Script RaceObjectives para saber as voltas dadas por cada kart. 
+        // Esses nomes estão sendo utilizados nos Scripts(RaceObjectives, CountLaps, PlayerPowers). Cuidado ao alterar.
+        P1.name = "P1"; // Altera o nome do kart do Player 1 para P1. 
         P2.name = "P2"; // Altera o nome do kart do Player 2 para P2.
 
         // Altera os Inputs do Player 1 e Player 2.

@@ -1,5 +1,6 @@
 using KartGame.KartSystems;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
@@ -28,10 +29,13 @@ public class Oil : MonoBehaviour
     {
         StopCoroutine(playerPowers.IncressSpeed());
 
-        arcadeKart.baseStats.TopSpeed = playerPowers.initialSpeed * percentOfStun;
+        float initialSpeed = arcadeKart.baseStats.TopSpeed;
+        
+        arcadeKart.baseStats.TopSpeed = initialSpeed * percentOfStun;
 
         yield return new WaitForSeconds(timeStunned);
 
-        arcadeKart.baseStats.TopSpeed = playerPowers.initialSpeed;
+        arcadeKart.baseStats.TopSpeed = initialSpeed;
     }
+    //Vector3 newVelocity = new Vector3(Mathf.Clamp(arcadeKart.Rigidbody.linearVelocity.x, 0, initialSpeed), arcadeKart.Rigidbody.linearVelocity.y, Mathf.Clamp(arcadeKart.Rigidbody.linearVelocity.z, 0, initialSpeed));
 }
