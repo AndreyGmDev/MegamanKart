@@ -228,18 +228,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3892209642750552132}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 89e228c5f6aa92d47800a3283623d19a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   frontSpawn: {fileID: 5289262089945404091}
-  leftSpawn: {fileID: 0}
-  rightSpawn: {fileID: 0}
-  backSpawn: {fileID: 3640190424560135477}
+  piaoSpawn: {fileID: 3640190424560135477}
   napalm: {fileID: 8353591707020432107, guid: f703dc9b0111da445b34de20546538df, type: 3}
   piao: {fileID: 5380089327457348584, guid: 975bea3869fdc5b468135de0fa3fd97c, type: 3}
+  oil: {fileID: 9199136951324969821, guid: 4a63c0640d32e2842be9495ffb489e1a, type: 3}
   inputToUsePower: 
+  flash:
+  - {fileID: 0}
+  - {fileID: 0}
+  selectPower: 0
 --- !u!114 &8876279958151330855
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,25 +17,29 @@ public class Oil : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
-        {
-            arcadeKart = other.GetComponent<ArcadeKart>();
-            playerPowers = other.gameObject.GetComponent<PlayerPowers>();
-            StartCoroutine("Stunned");
-        }
+        if (!other.CompareTag("Player")) return;
+        
+        if (!other.isTrigger) return;
+
+        arcadeKart = other.GetComponent<ArcadeKart>();
+        playerPowers = other.gameObject.GetComponent<PlayerPowers>();
+        Destroy(gameObject, timeToDissapear);
+        StartCoroutine("Stunned");
+
     }
 
     IEnumerator Stunned()
     {
         StopCoroutine(playerPowers.IncressSpeed());
 
-        float initialSpeed = arcadeKart.baseStats.TopSpeed;
-        
-        arcadeKart.baseStats.TopSpeed = initialSpeed * percentOfStun;
+        float initialSpeed = playerPowers.initialSpeed;
+
+        arcadeKart.Rigidbody.linearVelocity *= percentOfStun;
+        arcadeKart.baseStats.TopSpeed *= percentOfStun;
 
         yield return new WaitForSeconds(timeStunned);
 
         arcadeKart.baseStats.TopSpeed = initialSpeed;
     }
-    //Vector3 newVelocity = new Vector3(Mathf.Clamp(arcadeKart.Rigidbody.linearVelocity.x, 0, initialSpeed), arcadeKart.Rigidbody.linearVelocity.y, Mathf.Clamp(arcadeKart.Rigidbody.linearVelocity.z, 0, initialSpeed));
+    
 }

@@ -13,9 +13,8 @@ public class PlayerPowers : MonoBehaviour
 {
     [Header("Spawn Power Positions")]
     [SerializeField] Transform frontSpawn;
-    [SerializeField] Transform leftSpawn;
-    [SerializeField] Transform rightSpawn;
-    [SerializeField] Transform backSpawn;
+    [SerializeField] Transform piaoSpawn;
+
 
     [Header("Powers Prefab")]
     [SerializeField] GameObject napalm; // Poder Napalm.
@@ -29,8 +28,8 @@ public class PlayerPowers : MonoBehaviour
     RaceObjectives raceObjectives;
     [SerializeField] Flash[] flash = new Flash[2];
     
-    const int numberOfPowers = 4; // Número total de poderes.
-    int selectPower; // Número do poder selecionado.
+    const int numberOfPowers = 5; // Número total de poderes.
+    public int selectPower; // Número do poder selecionado.
     [HideInInspector] public float initialSpeed;
     
     private void Start()
@@ -48,6 +47,7 @@ public class PlayerPowers : MonoBehaviour
             flash[i] = GameObject.Find("InterfaceP" + (i+1)).GetComponent<Flash>();
         }
         
+        enabled = false;
     }
 
     // Ativado quando player pega o coletável no cenário.
@@ -55,7 +55,6 @@ public class PlayerPowers : MonoBehaviour
     {
         // Randomiza um poder.
         selectPower = UnityEngine.Random.Range(0, numberOfPowers);
-        //selectPower = 3;
     }
 
     
@@ -80,7 +79,7 @@ public class PlayerPowers : MonoBehaviour
                     print("napalm");
                     break;
                 case 2:
-                    obj = Instantiate(piao, backSpawn.transform.position, Quaternion.identity);
+                    obj = Instantiate(piao, piaoSpawn.transform.position, Quaternion.identity);
                     obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
                     print("piao");
                     break;
@@ -89,9 +88,9 @@ public class PlayerPowers : MonoBehaviour
                     print("Flashing");
                     break;
                 case 4:
-                    /*obj = Instantiate(oil, backSpawn.transform.position, Quaternion.identity);
+                    obj = Instantiate(oil, piaoSpawn.transform.position - transform.forward, Quaternion.identity);
                     obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-                    print("Oil");*/
+                    print("Oil");
                     break;
                 case 5:
 
@@ -111,6 +110,7 @@ public class PlayerPowers : MonoBehaviour
             yield return new WaitForSeconds(5);
 
             arcadeKart.baseStats.TopSpeed = initialSpeed;
+            arcadeKart.Rigidbody.linearVelocity *= 0.75f;
         }
 
         enabled = false; // Desativa o código esperando a próxima ativação.
