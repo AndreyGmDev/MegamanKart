@@ -3,6 +3,7 @@ using NUnit.Framework.Internal;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using Unity.Mathematics;
 using Unity.VisualScripting;
@@ -124,6 +125,8 @@ public class PlayerPowers : MonoBehaviour
 
     void Flashing()
     {
+        //if (flash.Any(x => x == null)) return;
+
         string playerStringNumber = Regex.Replace(gameObject.name, @"[^\d]", ""); // Retira todos os caracteres exceto números.
         int playerNumber = (Convert.ToInt32(playerStringNumber)) - 1;
 
