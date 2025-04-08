@@ -51,24 +51,29 @@ public class RaceObjectives : MonoBehaviour
                 currentLaps[i] += value;
             }
 
+            // Se um player completou o número total de voltas.
             if (currentLaps[i] >= lapsToComplete)
             {
                 players[i].GetComponent<ArcadeKart>().enabled = false;
 
-                if(winner != null) continue;
+                foreach (var kart in players)
+                {
+                    if (kart != winner)
+                    {
+                        winnerKart.secondKart = players[i].transform.GetChild(0).name;
+                    }
+                }
+                
+                if (winner != null) continue;
 
                 winner = players[i];
+                winnerKart.winnerKart = winner.transform.GetChild(0).name;
             }
         }
 
         // Se todos os players completarem o total de voltas, a corrida é finalizada.
         if (currentLaps.All(x => lapsToComplete - x <= 0))
         {
-            if (winner != null)
-            {
-                winnerKart.winnerKart = winner.transform.GetChild(0).name;
-            }
-
             StartCoroutine("WinScene");
         }
     }

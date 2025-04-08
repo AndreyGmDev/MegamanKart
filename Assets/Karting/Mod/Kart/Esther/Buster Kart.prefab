@@ -259,10 +259,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    TopSpeed: 17
+    TopSpeed: 27
     Acceleration: 14
-    ReverseSpeed: 10
-    ReverseAcceleration: 3
+    ReverseSpeed: 15
+    ReverseAcceleration: 6
     AccelerationCurve: 0.6
     Braking: 16
     CoastingDrag: 5

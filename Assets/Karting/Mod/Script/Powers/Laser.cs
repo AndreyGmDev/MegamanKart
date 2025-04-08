@@ -15,4 +15,5 @@ public class Laser : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime);
         print(transform.forward);
     }
+
 }

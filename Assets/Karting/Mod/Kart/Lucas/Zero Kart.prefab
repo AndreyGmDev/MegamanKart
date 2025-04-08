@@ -145,15 +145,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseStats:
-    TopSpeed: 15
+    TopSpeed: 30
     Acceleration: 20
-    ReverseSpeed: 10
-    ReverseAcceleration: 3
+    ReverseSpeed: 15
+    ReverseAcceleration: 6
     AccelerationCurve: 0.45
     Braking: 16
     CoastingDrag: 5
     Grip: 0.97
-    Steer: 4
+    Steer: 3
     AddedGravity: 1
   m_VisualWheels:
   - {fileID: 2841404814531176708}

@@ -4,4 +4,5 @@ using UnityEngine;
 public class WinnerKart : ScriptableObject
 {
     public string winnerKart;
+    public string secondKart;
 }
