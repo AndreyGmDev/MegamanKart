@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initialScale: 0.1
-  maxScale: 0.34
+  maxScale: 0.25
   turnVelocity: 360
   speed: 7
   kartRotation: 720

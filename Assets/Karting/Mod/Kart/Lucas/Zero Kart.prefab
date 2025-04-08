@@ -146,10 +146,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseStats:
     TopSpeed: 15
-    Acceleration: 11
+    Acceleration: 20
     ReverseSpeed: 10
     ReverseAcceleration: 3
-    AccelerationCurve: 0.5
+    AccelerationCurve: 0.45
     Braking: 16
     CoastingDrag: 5
     Grip: 0.97
@@ -162,11 +162,11 @@ MonoBehaviour:
   - {fileID: 6425555910297752883}
   CenterOfMass: {fileID: 3205628059154219103}
   AirborneReorientationCoefficient: 1
-  DriftGrip: 0.85
+  DriftGrip: 0.7
   DriftAdditionalSteer: 0
   MinAngleToFinishDrift: 29
   MinSpeedPercentToFinishDrift: 0.95
-  DriftControl: 16
+  DriftControl: 13
   DriftDampening: 8
   DriftSparkVFX: {fileID: 5720418349283321134, guid: 83d0ce15c25af954bbd1425a9ddf8458,
     type: 3}
