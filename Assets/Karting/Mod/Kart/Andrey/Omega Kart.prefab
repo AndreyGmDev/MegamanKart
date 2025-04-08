@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1317710073874795674
+--- !u!1 &1020453493799111134
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5924807764292254049}
-  - component: {fileID: 8280909797118625100}
+  - component: {fileID: 7197059292114372900}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Omega Kart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5924807764292254049
+--- !u!4 &7197059292114372900
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317710073874795674}
+  m_GameObject: {fileID: 1020453493799111134}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.149, z: 0.08}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5581457962740066006}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &8280909797118625100
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1317710073874795674}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Radius: 0.3
-  m_Height: 1.1
-  m_Direction: 2
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2721275567100620111
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +310,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5924807764292254049}
+  - {fileID: 7197059292114372900}
   - {fileID: 3062832060820248212}
   - {fileID: 563906086867272772}
   - {fileID: 4832041772436174949}
@@ -399,10 +375,12 @@ MonoBehaviour:
   piao: {fileID: 5380089327457348584, guid: 975bea3869fdc5b468135de0fa3fd97c, type: 3}
   oil: {fileID: 9199136951324969821, guid: 4a63c0640d32e2842be9495ffb489e1a, type: 3}
   inputToUsePower: 
-  flash:
-  - {fileID: 0}
-  - {fileID: 0}
+  percentOfIncressSpeed: 0.3
+  timeFlashed: 3
   selectPower: 0
+  initialTopSpeed: 0
+  initialReverseSpeed: 0
+  oilPercentOfStun: 0
 --- !u!114 &8876279958151330855
 MonoBehaviour:
   m_ObjectHideFlags: 0

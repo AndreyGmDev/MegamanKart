@@ -13168,6 +13168,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EstherKart
       objectReference: {fileID: 0}
+    - target: {fileID: 4619992463445515008, guid: 86b8100e59bec3440b0c9b3fbe725c13,
+        type: 3}
+      propertyPath: inputToUsePower
+      value: UsePowerP1
+      objectReference: {fileID: 0}
     - target: {fileID: 5581457962740066006, guid: 86b8100e59bec3440b0c9b3fbe725c13,
         type: 3}
       propertyPath: m_LocalPosition.x

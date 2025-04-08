@@ -68,11 +68,9 @@ public class Piao : MonoBehaviour
     {
         player = collision.gameObject;
 
-        // Ativa o som.
-        //GetComponent<AudioSource>().enabled = true;
-
         // Desativa o objeto.
         GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<AudioSource>().enabled = false;
         foreach (var cld in GetComponents<Collider>())
             cld.enabled = false;
 

@@ -175,10 +175,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5863335547882628768}
   - {fileID: 3201653736763323154}
+  - {fileID: 1554108899012401883}
   - {fileID: 4832041772436174949}
   - {fileID: 6253680128910840952}
-  - {fileID: 1554108899012401883}
   - {fileID: 3742310262420945372}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
@@ -239,10 +240,12 @@ MonoBehaviour:
   piao: {fileID: 5380089327457348584, guid: 975bea3869fdc5b468135de0fa3fd97c, type: 3}
   oil: {fileID: 9199136951324969821, guid: 4a63c0640d32e2842be9495ffb489e1a, type: 3}
   inputToUsePower: 
-  flash:
-  - {fileID: 0}
-  - {fileID: 0}
+  percentOfIncressSpeed: 0.3
+  timeFlashed: 3
   selectPower: 0
+  initialTopSpeed: 0
+  initialReverseSpeed: 0
+  oilPercentOfStun: 0
 --- !u!114 &8876279958151330855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -615,6 +618,37 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!1 &4998761761774408605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5863335547882628768}
+  m_Layer: 0
+  m_Name: Buster Kart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5863335547882628768
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4998761761774408605}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5581457962740066006}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6108664696512479217
 GameObject:
   m_ObjectHideFlags: 0

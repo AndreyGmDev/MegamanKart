@@ -23,22 +23,34 @@ public class PlayerPowers : MonoBehaviour
     [SerializeField] GameObject oil; // Poder Oil.
 
     [Header("Input")]
-    public string inputToUsePower;
+    public string inputToUsePower; // Input para usar os poderes.
 
+    [Header("References")]
     ArcadeKart arcadeKart;
     RaceObjectives raceObjectives;
-    [SerializeField] Flash[] flash = new Flash[2];
-    
+    Flash[] flash = new Flash[2];
+
+    [Header("Statistics Of Power")]
+    [Min(0), Tooltip("Poncentagem que deixa o player mais rápido, Exemplo: speed = speed + speed * percentOfIncressSpeed")]
+    [SerializeField] float percentOfIncressSpeed = 0.3f;
+
+    [Tooltip("Tempo que os players adversários ficam cegos")]
+    [SerializeField] float timeFlashed = 3;
+
+
     const int numberOfPowers = 5; // Número total de poderes.
     public int selectPower; // Número do poder selecionado.
-    [HideInInspector] public float initialSpeed;
-    
+    [HideInInspector] public float initialTopSpeed; // Valor de velocidade máxima do player.
+    [HideInInspector] public float initialReverseSpeed; // Valor de velocidade reversa máxima do player.
+    [HideInInspector] public float oilPercentOfStun; // Pega do script Oil, quando o player passa por cima do OilPrefab;
+
     private void Start()
     {
         if (GetComponent<ArcadeKart>() != null)
         {
             arcadeKart = GetComponent<ArcadeKart>();
-            initialSpeed = arcadeKart.baseStats.TopSpeed;
+            initialTopSpeed = arcadeKart.baseStats.TopSpeed;
+            initialReverseSpeed = arcadeKart.baseStats.ReverseSpeed;
         }
 
         raceObjectives = FindAnyObjectByType<RaceObjectives>();
@@ -106,12 +118,31 @@ public class PlayerPowers : MonoBehaviour
     {
         if (GetComponent<ArcadeKart>() != null)
         {
-            arcadeKart.baseStats.TopSpeed = 1.3f * initialSpeed;
+            // Confere se o carro está sendo afetado por algum poder, ou seja, se sofreu alguma perda na velocidade máxima.
+            if (arcadeKart.baseStats.TopSpeed >= initialTopSpeed)
+            {
+                arcadeKart.baseStats.TopSpeed += initialTopSpeed * percentOfIncressSpeed;
+                arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, 0, (1 + percentOfIncressSpeed) * initialTopSpeed);
+
+                arcadeKart.baseStats.ReverseSpeed += initialReverseSpeed * percentOfIncressSpeed;
+                arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, 0, (1 + percentOfIncressSpeed) * initialReverseSpeed);
+            }
+            else
+            {
+                arcadeKart.baseStats.TopSpeed += initialTopSpeed * percentOfIncressSpeed;
+                arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, 0, ((1 - oilPercentOfStun) * initialTopSpeed) + (percentOfIncressSpeed * initialTopSpeed));
+
+                arcadeKart.baseStats.ReverseSpeed += initialReverseSpeed * percentOfIncressSpeed;
+                arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, 0, ((1 - oilPercentOfStun) * initialTopSpeed) + percentOfIncressSpeed * initialReverseSpeed);
+            }
+
 
             yield return new WaitForSeconds(5);
 
-            arcadeKart.baseStats.TopSpeed = initialSpeed;
-            arcadeKart.Rigidbody.linearVelocity *= 0.75f;
+            arcadeKart.Rigidbody.linearVelocity *= 1 - ((initialTopSpeed * percentOfIncressSpeed) / arcadeKart.baseStats.TopSpeed);
+            arcadeKart.baseStats.TopSpeed -= initialTopSpeed * percentOfIncressSpeed;
+            arcadeKart.baseStats.ReverseSpeed -= initialReverseSpeed * percentOfIncressSpeed;
+            
         }
 
         enabled = false; // Desativa o código esperando a próxima ativação.
@@ -125,7 +156,7 @@ public class PlayerPowers : MonoBehaviour
 
     void Flashing()
     {
-        //if (flash.Any(x => x == null)) return;
+        if (flash.Any(x => x == null)) return;
 
         string playerStringNumber = Regex.Replace(gameObject.name, @"[^\d]", ""); // Retira todos os caracteres exceto números.
         int playerNumber = (Convert.ToInt32(playerStringNumber)) - 1;
@@ -134,7 +165,7 @@ public class PlayerPowers : MonoBehaviour
         {
             if (raceObjectives.positions[i] > raceObjectives.positions[playerNumber])
             {
-                    flash[i].timeFlashed = 5;
+                flash[i].timeFlashed = timeFlashed;
             }
         }
     }

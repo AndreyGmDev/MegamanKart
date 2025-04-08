@@ -34,16 +34,16 @@ public class InterfacePlayers : MonoBehaviour
         if (power == null) return;
 
         if (gameObject.name == "InterfaceP1")
-            position.text = raceObjectives.positions[0].ToString();
+            position.text = raceObjectives.positions[0].ToString() + "°";
         else if(gameObject.name == "InterfaceP2")
-            position.text = raceObjectives.positions[1].ToString();
+            position.text = raceObjectives.positions[1].ToString() + "°";
 
         if (playerPowers.enabled && powers.All(s => s != null))
         {
-            print("Ativo");
+            power.enabled = true;
             power.sprite = powers[playerPowers.selectPower];
         }
-        else if (withoutPower != null)
-            power.sprite = withoutPower;
+        else
+            power.enabled = false;
     }
 }

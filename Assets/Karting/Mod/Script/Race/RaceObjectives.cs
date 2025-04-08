@@ -1,10 +1,13 @@
+using KartGame.KartSystems;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using TMPro;
 using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -20,7 +23,10 @@ public class RaceObjectives : MonoBehaviour
 
     [HideInInspector] public GameObject[] players = new GameObject[2];
     [HideInInspector] public int[] positions;
-    
+
+    [SerializeField] WinnerKart winnerKart; // Passa o kart vencedor da corrida para a WinScene.
+
+    [SerializeField] Animator transitionToWinScene;
     private void Start()
     {
         positions = new int[players.Length];
@@ -36,6 +42,8 @@ public class RaceObjectives : MonoBehaviour
     }
     public void CountLapsPerPlayer(GameObject player, int value)
     {
+        GameObject winner = null;
+
         for (int i = 0; i < players.Length; i++)
         {
             if (player.name == "P" + (i + 1))
@@ -43,12 +51,40 @@ public class RaceObjectives : MonoBehaviour
                 currentLaps[i] += value;
             }
 
-            int lapsRemaining = lapsToComplete - currentLaps[i];
-            if (lapsRemaining <= 0)
+            if (currentLaps[i] >= lapsToComplete)
             {
-                SceneManager.LoadScene("WinScene");
+                players[i].GetComponent<ArcadeKart>().enabled = false;
+
+                if(winner != null) continue;
+
+                winner = players[i];
             }
-        }        
+        }
+
+        // Se todos os players completarem o total de voltas, a corrida é finalizada.
+        if (currentLaps.All(x => lapsToComplete - x <= 0))
+        {
+            if (winner != null)
+            {
+                winnerKart.winnerKart = winner.transform.GetChild(0).name;
+            }
+
+            StartCoroutine("WinScene");
+        }
+    }
+
+    IEnumerator WinScene()
+    {
+        yield return new WaitForSeconds(1);
+
+        if (transitionToWinScene != null)
+        {
+            transitionToWinScene.enabled = true;
+        }
+
+        yield return new WaitForSeconds(1);
+
+        SceneManager.LoadScene("WinScene");
     }
 
     private void Update()
@@ -56,56 +92,8 @@ public class RaceObjectives : MonoBehaviour
         if (closestWaypointOfPlayer.Any(waypoint => waypoint == null)) return;
 
         CalculateDistance();
-        print(closestWaypointOfPlayer[0]);
-        print(closestWaypointOfPlayer[1]);
     }
-
-    /*void CalculateDistance3()
-    {
-        Dictionary<int, List<float>> waypointAndDistance = new Dictionary<int, List<float>>();
-        Dictionary<int, List<int>> waypointAndPlayers = new Dictionary<int, List<int>>();
-
-        for (int i = 0; i < positions.Length; i++)
-        {
-            int waypoint = Convert.ToInt32(closestWaypointOfPlayer[i].name);
-            float distance = distanceClosestWaypoint[i];
-
-
-            if (!waypointAndDistance.ContainsKey(waypoint))
-            {
-                waypointAndDistance[waypoint] = new List<float>();
-                waypointAndPlayers[waypoint] = new List<int>();
-            }
-
-            waypointAndDistance[waypoint].Add(distance);
-            waypointAndPlayers[waypoint].Add(i);
-        }
-
-        var sortedWaypoints = waypointAndDistance.Keys.OrderByDescending(k => k).ToList();
-
-        List<(int playerIndex, int rank)> playersPosition = new List<(int, int)>();
-
-        int rank = 1;
-        foreach (var waypoint in sortedWaypoints)
-        {
-
-            var sortedDistances = waypointAndDistance[waypoint].
-            Select((distance, index) => new { distance, playerIndex = waypointAndPlayers[waypoint][index]}).
-            OrderBy(x => x.distance).ToList();
-
-            foreach (var player in sortedDistances)
-            {
-                playersPosition.Add((player.playerIndex, rank++));
-            }
-        }
-
-        foreach (var playerRank in playersPosition)
-        {
-            positions[playerRank.playerIndex] = playerRank.rank;
-        }
-
-    }*/
-
+    
     void CalculateDistance()
     {
         // dicionário para armazenar a posição dos jogadores em cada waypoint
@@ -192,10 +180,6 @@ public class RaceObjectives : MonoBehaviour
         {
             positions[playerRank.playerIndex] = playerRank.rank;
         }
-
-        
-
     }
-
-
+   
 }
