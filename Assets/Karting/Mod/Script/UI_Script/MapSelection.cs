@@ -25,27 +25,13 @@ public class MapSelection : MonoBehaviour
     private void Awake()
     {
         lavaMap.onClick.AddListener(() => StartCoroutine(GoingToLevel("LavaMap",lavaMap)));
-        //desertMap.onClick.AddListener(() => mapSelected = "");
+        desertMap.onClick.AddListener(() => StartCoroutine(GoingToLevel("DesertMap", lavaMap)));
     }
 
     void InteractButton()
     {
         lavaMap.interactable = false;
         desertMap.interactable = false;
-    }
-
-    private void Update()
-    {
-        // Para o funcionamento de qualquer Input quando a animação de passar de cena começar.
-        if (letsGo1.enabled && letsGo2.enabled) return;
-
-        // Chama a coroutine de passar de cena quando os dois karts forem selecionados.
-        if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Backspace)) && mapSelected != null)
-        {
-            
-
-            ;
-        }
     }
 
     private void FixedUpdate()

@@ -9,19 +9,19 @@ EditorBuildSettings:
     path: Assets/Karting/Mod/Scenes/IntroMenu.unity
     guid: d29260d8d84c94bd7ac95807b3da99d4
   - enabled: 1
-    path: Assets/Karting/Mod/Scenes/LoseScene.unity
-    guid: 9c449e01147824b419cda406398fb2e7
-  - enabled: 1
-    path: Assets/Karting/Mod/Scenes/WinScene.unity
-    guid: d6801f2e59f75ee4b919cf5da4e48e3b
-  - enabled: 1
     path: Assets/Karting/Mod/Scenes/KartSelection.unity
     guid: c2795b39040e45242971176663e91bee
+  - enabled: 1
+    path: Assets/Karting/Mod/Scenes/DesertMap.unity
+    guid: d0c140f3311da5c4da58869a40f473e5
   - enabled: 1
     path: Assets/Karting/Mod/Scenes/LavaMap.unity
     guid: 0cbcc39f6bf5cd444a4229840360765c
   - enabled: 1
-    path: Assets/Karting/Mod/Scenes/DesertMap.unity
-    guid: d0c140f3311da5c4da58869a40f473e5
+    path: Assets/Karting/Mod/Scenes/DesertMapWinScene.unity
+    guid: 10c776e75e1d2bc48b6727c645ad4112
+  - enabled: 1
+    path: Assets/Karting/Mod/Scenes/LavaMapWinScene.unity
+    guid: d6801f2e59f75ee4b919cf5da4e48e3b
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

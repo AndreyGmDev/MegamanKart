@@ -84,26 +84,21 @@ public class PlayerPowers : MonoBehaviour
                 case 0:
                     StopCoroutine("IncressSpeed"); // Para todas a coroutine IncressSpeed anterior, se houver, para evitar interromper na nova.
                     StartCoroutine("IncressSpeed"); // Inicia coroutine de aumentar velocidade do Player.
-                    print("Speed");
                     break;
                 case 1:
                     obj = Instantiate(napalm, frontSpawn.transform.position, Quaternion.identity);
                     obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-                    print("napalm");
                     break;
                 case 2:
                     obj = Instantiate(piao, piaoSpawn.transform.position, Quaternion.identity);
                     obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-                    print("piao");
                     break;
                 case 3:
                     Flashing();
-                    print("Flashing");
                     break;
                 case 4:
                     obj = Instantiate(oil, piaoSpawn.transform.position - transform.forward, Quaternion.identity);
                     obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-                    print("Oil");
                     break;
                 case 5:
 

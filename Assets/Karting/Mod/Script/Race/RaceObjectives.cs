@@ -84,7 +84,9 @@ public class RaceObjectives : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        SceneManager.LoadScene("WinScene");
+        // Direciona para o mapa de vitória referente.
+        string map = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(map + "WinScene");
     }
 
     private void Update()
