@@ -126,14 +126,8 @@ MonoBehaviour:
   piao: {fileID: 5380089327457348584, guid: 975bea3869fdc5b468135de0fa3fd97c, type: 3}
   oil: {fileID: 9199136951324969821, guid: 4a63c0640d32e2842be9495ffb489e1a, type: 3}
   inputToUsePower: 
-  normalMaterial:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  lavaMaterial:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  normalMaterial: {fileID: 0}
+  lavaMaterial: {fileID: 0}
   wheels:
   - {fileID: 7065150626858689997}
   - {fileID: 6425555910297752883}
@@ -179,7 +173,7 @@ MonoBehaviour:
   DriftAdditionalSteer: 0
   MinAngleToFinishDrift: 29
   MinSpeedPercentToFinishDrift: 0.95
-  DriftControl: 13
+  DriftControl: 11
   DriftDampening: 8
   DriftSparkVFX: {fileID: 5720418349283321134, guid: 83d0ce15c25af954bbd1425a9ddf8458,
     type: 3}
@@ -341,7 +335,7 @@ Transform:
   m_GameObject: {fileID: 4642374531794580624}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.32, z: -1.03}
+  m_LocalPosition: {x: 0, y: -0.265, z: -1.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -35,11 +35,12 @@ public class PlayerPowers : MonoBehaviour
 
     [Header("Statistics Of Power")]
     [Min(0), Tooltip("Poncentagem que deixa o player mais rápido, Exemplo: speed = speed + speed * percentOfIncressSpeed")]
-    [SerializeField] float percentOfIncressSpeed = 0.3f;
+    public float percentOfIncressSpeed = 0.3f;
 
     [Tooltip("Tempo que os players adversários ficam cegos")]
     [SerializeField] float timeFlashed = 3;
 
+    [SerializeField] float timeStunned = 3;
 
     const int numberOfPowers = 5; // Número total de poderes.
     public int selectPower; // Número do poder selecionado.
@@ -110,6 +111,7 @@ public class PlayerPowers : MonoBehaviour
 
            enabled = false;
         }
+
     }
 
     public IEnumerator IncressSpeed()
@@ -131,7 +133,7 @@ public class PlayerPowers : MonoBehaviour
                 arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, 0, ((1 - oilPercentOfStun) * initialTopSpeed) + (percentOfIncressSpeed * initialTopSpeed));
 
                 arcadeKart.baseStats.ReverseSpeed += initialReverseSpeed * percentOfIncressSpeed;
-                arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, 0, ((1 - oilPercentOfStun) * initialTopSpeed) + percentOfIncressSpeed * initialReverseSpeed);
+                arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, 0, ((1 - oilPercentOfStun) * initialReverseSpeed) + percentOfIncressSpeed * initialReverseSpeed);
             }
 
             if (lavaMaterial != null)
@@ -159,10 +161,32 @@ public class PlayerPowers : MonoBehaviour
 
     }
 
-    void InstantiatePower(GameObject power, GameObject spawnObject)
+    public IEnumerator Teste()
     {
-        GameObject obj = Instantiate(power, spawnObject.transform.position, Quaternion.identity);
-        obj.transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
+        arcadeKart.Rigidbody.linearVelocity *= 1 - ((initialTopSpeed * oilPercentOfStun) / arcadeKart.baseStats.TopSpeed);
+
+        // Confere se o carro está sendo afetado por algum poder, ou seja, se sofreu alguma perda na velocidade máxima.
+        if (arcadeKart.baseStats.TopSpeed <= initialTopSpeed)
+        {
+            arcadeKart.baseStats.TopSpeed -= initialTopSpeed * oilPercentOfStun;
+            arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, (1 - oilPercentOfStun) * initialTopSpeed, arcadeKart.baseStats.TopSpeed);
+
+            arcadeKart.baseStats.ReverseSpeed -= initialReverseSpeed * oilPercentOfStun;
+            arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, (1 - oilPercentOfStun) * initialReverseSpeed, arcadeKart.baseStats.ReverseSpeed);
+        }
+        else
+        {
+            arcadeKart.baseStats.TopSpeed -= initialTopSpeed * oilPercentOfStun;
+            arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, ((1 - oilPercentOfStun) * initialTopSpeed) + (percentOfIncressSpeed * initialTopSpeed), arcadeKart.baseStats.TopSpeed);
+
+            arcadeKart.baseStats.ReverseSpeed -= initialReverseSpeed * oilPercentOfStun;
+            arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, ((1 - oilPercentOfStun) * initialReverseSpeed) + percentOfIncressSpeed * initialReverseSpeed, arcadeKart.baseStats.ReverseSpeed);
+        }
+
+        yield return new WaitForSeconds(timeStunned);
+
+        arcadeKart.baseStats.TopSpeed += initialTopSpeed * oilPercentOfStun;
+        arcadeKart.baseStats.ReverseSpeed += initialReverseSpeed * oilPercentOfStun;
     }
 
     void Flashing()
