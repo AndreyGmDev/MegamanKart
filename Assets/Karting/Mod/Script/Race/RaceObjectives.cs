@@ -25,7 +25,7 @@ public class RaceObjectives : MonoBehaviour
     [HideInInspector] public int[] positions;
 
     [SerializeField] WinnerKart winnerKart; // Passa o kart vencedor da corrida para a WinScene.
-
+    GameObject winner;
     [SerializeField] Animator transitionToWinScene;
     private void Start()
     {
@@ -42,7 +42,6 @@ public class RaceObjectives : MonoBehaviour
     }
     public void CountLapsPerPlayer(GameObject player, int value)
     {
-        GameObject winner = null;
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -56,18 +55,21 @@ public class RaceObjectives : MonoBehaviour
             {
                 players[i].GetComponent<ArcadeKart>().enabled = false;
 
-                foreach (var kart in players)
-                {
-                    if (kart != winner)
-                    {
-                        winnerKart.secondKart = players[i].transform.GetChild(0).name;
-                    }
-                }
-                
                 if (winner != null) continue;
 
                 winner = players[i];
                 winnerKart.winnerKart = winner.transform.GetChild(0).name;
+            }
+        }
+
+        foreach (var kart in players)
+        {
+            if (winner != null)
+            {
+                if (kart.name != winner.name)
+                {
+                    winnerKart.secondKart = kart.transform.GetChild(0).name;
+                }
             }
         }
 

@@ -12,4 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9011f9f8cc4819498ad7e06da729865, type: 3}
   m_Name: WinnerKart
   m_EditorClassIdentifier: 
-  winnerKart: Buster Kart
+  winnerKart: Omega Kart
+  secondKart: Zero Kart
