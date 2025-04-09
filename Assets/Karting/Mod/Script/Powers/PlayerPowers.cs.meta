@@ -5,13 +5,13 @@ MonoImporter:
   serializedVersion: 2
   defaultReferences:
   - frontSpawn: {instanceID: 0}
-  - leftSpawn: {instanceID: 0}
-  - rightSpawn: {instanceID: 0}
-  - backSpawn: {instanceID: 0}
+  - piaoSpawn: {instanceID: 0}
   - napalm: {fileID: 8353591707020432107, guid: f703dc9b0111da445b34de20546538df,
       type: 3}
   - piao: {fileID: 5380089327457348584, guid: 975bea3869fdc5b468135de0fa3fd97c, type: 3}
   - oil: {fileID: 9199136951324969821, guid: 4a63c0640d32e2842be9495ffb489e1a, type: 3}
+  - normalMaterial: {instanceID: 0}
+  - lavaMaterial: {fileID: 2100000, guid: 4e7d93d5e862959498a23b4efda192a1, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

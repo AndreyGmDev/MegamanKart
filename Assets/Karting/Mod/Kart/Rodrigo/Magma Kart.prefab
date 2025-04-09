@@ -157,6 +157,13 @@ MonoBehaviour:
   piao: {fileID: 5380089327457348584, guid: 975bea3869fdc5b468135de0fa3fd97c, type: 3}
   oil: {fileID: 9199136951324969821, guid: 4a63c0640d32e2842be9495ffb489e1a, type: 3}
   inputToUsePower: 
+  normalMaterial: {fileID: 0}
+  lavaMaterial: {fileID: 0}
+  wheels:
+  - {fileID: 496991479642290924}
+  - {fileID: 1130986219266229049}
+  - {fileID: 5403578567469020306}
+  - {fileID: 8748775146073598575}
   percentOfIncressSpeed: 0.3
   timeFlashed: 3
   selectPower: 0

@@ -26,6 +26,9 @@ public class PlayerPowers : MonoBehaviour
     public string inputToUsePower; // Input para usar os poderes.
 
     [Header("References")]
+    [SerializeField] Material normalMaterial;
+    [SerializeField] Material lavaMaterial;
+    [SerializeField] GameObject[] wheels;
     ArcadeKart arcadeKart;
     RaceObjectives raceObjectives;
     Flash[] flash = new Flash[2];
@@ -131,16 +134,29 @@ public class PlayerPowers : MonoBehaviour
                 arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, 0, ((1 - oilPercentOfStun) * initialTopSpeed) + percentOfIncressSpeed * initialReverseSpeed);
             }
 
-
+            if (lavaMaterial != null)
+            {
+                for (int i = 0; i < wheels.Length; i++)
+                {
+                    wheels[i].GetComponent<Renderer>().material = lavaMaterial;
+                }
+            }
+            
             yield return new WaitForSeconds(5);
 
             arcadeKart.Rigidbody.linearVelocity *= 1 - ((initialTopSpeed * percentOfIncressSpeed) / arcadeKart.baseStats.TopSpeed);
             arcadeKart.baseStats.TopSpeed -= initialTopSpeed * percentOfIncressSpeed;
             arcadeKart.baseStats.ReverseSpeed -= initialReverseSpeed * percentOfIncressSpeed;
-            
+
+            if (lavaMaterial != null)
+            {
+                for (int i = 0; i < wheels.Length; i++)
+                {
+                    wheels[i].GetComponent<Renderer>().material = normalMaterial;
+                }
+            }
         }
 
-        enabled = false; // Desativa o código esperando a próxima ativação.
     }
 
     void InstantiatePower(GameObject power, GameObject spawnObject)
