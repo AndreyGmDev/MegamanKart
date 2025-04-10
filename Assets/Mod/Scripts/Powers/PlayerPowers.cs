@@ -47,7 +47,6 @@ public class PlayerPowers : MonoBehaviour
     [HideInInspector] public float initialTopSpeed; // Valor de velocidade máxima do player.
     [HideInInspector] public float initialReverseSpeed; // Valor de velocidade reversa máxima do player.
     [HideInInspector] public float oilPercentOfStun; // Pega do script Oil, quando o player passa por cima do OilPrefab;
-
     private void Start()
     {
         if (GetComponent<ArcadeKart>() != null)
@@ -119,7 +118,7 @@ public class PlayerPowers : MonoBehaviour
         if (GetComponent<ArcadeKart>() != null)
         {
             // Confere se o carro está sendo afetado por algum poder, ou seja, se sofreu alguma perda na velocidade máxima.
-            if (arcadeKart.baseStats.TopSpeed >= initialTopSpeed)
+            if (arcadeKart.baseStats.TopSpeed > initialTopSpeed - 1 && arcadeKart.baseStats.TopSpeed < initialTopSpeed + 1)
             {
                 arcadeKart.baseStats.TopSpeed += initialTopSpeed * percentOfIncressSpeed;
                 arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, 0, (1 + percentOfIncressSpeed) * initialTopSpeed);
@@ -143,7 +142,7 @@ public class PlayerPowers : MonoBehaviour
                     wheels[i].GetComponent<Renderer>().material = lavaMaterial;
                 }
             }
-            
+
             yield return new WaitForSeconds(5);
 
             arcadeKart.Rigidbody.linearVelocity *= 1 - ((initialTopSpeed * percentOfIncressSpeed) / arcadeKart.baseStats.TopSpeed);
@@ -159,34 +158,6 @@ public class PlayerPowers : MonoBehaviour
             }
         }
 
-    }
-
-    public IEnumerator Teste()
-    {
-        arcadeKart.Rigidbody.linearVelocity *= 1 - ((initialTopSpeed * oilPercentOfStun) / arcadeKart.baseStats.TopSpeed);
-
-        // Confere se o carro está sendo afetado por algum poder, ou seja, se sofreu alguma perda na velocidade máxima.
-        if (arcadeKart.baseStats.TopSpeed <= initialTopSpeed)
-        {
-            arcadeKart.baseStats.TopSpeed -= initialTopSpeed * oilPercentOfStun;
-            arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, (1 - oilPercentOfStun) * initialTopSpeed, arcadeKart.baseStats.TopSpeed);
-
-            arcadeKart.baseStats.ReverseSpeed -= initialReverseSpeed * oilPercentOfStun;
-            arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, (1 - oilPercentOfStun) * initialReverseSpeed, arcadeKart.baseStats.ReverseSpeed);
-        }
-        else
-        {
-            arcadeKart.baseStats.TopSpeed -= initialTopSpeed * oilPercentOfStun;
-            arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, ((1 - oilPercentOfStun) * initialTopSpeed) + (percentOfIncressSpeed * initialTopSpeed), arcadeKart.baseStats.TopSpeed);
-
-            arcadeKart.baseStats.ReverseSpeed -= initialReverseSpeed * oilPercentOfStun;
-            arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, ((1 - oilPercentOfStun) * initialReverseSpeed) + percentOfIncressSpeed * initialReverseSpeed, arcadeKart.baseStats.ReverseSpeed);
-        }
-
-        yield return new WaitForSeconds(timeStunned);
-
-        arcadeKart.baseStats.TopSpeed += initialTopSpeed * oilPercentOfStun;
-        arcadeKart.baseStats.ReverseSpeed += initialReverseSpeed * oilPercentOfStun;
     }
 
     void Flashing()

@@ -1,7 +1,5 @@
 using KartGame.KartSystems;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.ShaderGraph.Internal;
 using UnityEngine;
 
 public class Oil : MonoBehaviour
@@ -19,7 +17,6 @@ public class Oil : MonoBehaviour
 
     ArcadeKart arcadeKart;
     PlayerPowers playerPowers;
-    Coroutine coroutine;
     private void Start()
     {
         Destroy(gameObject, timeToDissapear);
@@ -36,67 +33,31 @@ public class Oil : MonoBehaviour
 
         playerPowers.oilPercentOfStun = percentOfStun;
 
-        if(coroutine != null)
-            StopCoroutine(coroutine);
+        StartCoroutine("Stunned");
 
-        coroutine = StartCoroutine(playerPowers.Teste());
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<BoxCollider>().enabled = false;
+
+        Destroy(gameObject, timeStunned + 1);
     }
 
-    private void OnTriggerStay(Collider other)
+    IEnumerator Stunned()
     {
-        if (!other.CompareTag("Player")) return;
+        GetComponent<AudioSource>().enabled = true;
 
-        if (!other.isTrigger) return;
-
-        if (arcadeKart.Rigidbody.linearVelocity.magnitude > 0.1)
-        {
-            GetComponent<AudioSource>().enabled = true;
-        }
-        else
-        {
-            GetComponent<AudioSource>().enabled = false;
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!other.CompareTag("Player")) return;
-
-        if (!other.isTrigger) return;
-
-        GetComponent<AudioSource>().enabled = false;
-    }
-
-    /*IEnumerator Stunned()
-    {
         float initialSpeed = playerPowers.initialTopSpeed;
         float initialReverseSpeed = playerPowers.initialReverseSpeed;
 
         arcadeKart.Rigidbody.linearVelocity *= 1 - ((initialSpeed * percentOfStun) / arcadeKart.baseStats.TopSpeed);
         arcadeKart.baseStats.TopSpeed -= initialSpeed * percentOfStun;
-
-        // Confere se o carro está sendo afetado por algum poder, ou seja, se sofreu alguma perda na velocidade máxima.
-        if (arcadeKart.baseStats.TopSpeed <= initialSpeed)
-        {
-            arcadeKart.baseStats.TopSpeed -= initialSpeed * percentOfStun;
-            arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, (1 - percentOfStun) * initialSpeed, arcadeKart.baseStats.TopSpeed);
-
-            arcadeKart.baseStats.ReverseSpeed -= playerPowers.initialReverseSpeed * percentOfStun;
-            arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, (1 - percentOfStun) * initialReverseSpeed, arcadeKart.baseStats.ReverseSpeed);
-        }
-        else
-        {
-            arcadeKart.baseStats.TopSpeed -= initialSpeed * percentOfStun;
-            arcadeKart.baseStats.TopSpeed = Mathf.Clamp(arcadeKart.baseStats.TopSpeed, ((1 - percentOfStun) * initialSpeed) + (playerPowers.percentOfIncressSpeed * initialSpeed), arcadeKart.baseStats.TopSpeed);
-
-            arcadeKart.baseStats.ReverseSpeed -= initialReverseSpeed * percentOfStun;
-            arcadeKart.baseStats.ReverseSpeed = Mathf.Clamp(arcadeKart.baseStats.ReverseSpeed, ((1 - percentOfStun) * initialSpeed) + playerPowers.percentOfIncressSpeed * initialReverseSpeed, arcadeKart.baseStats.ReverseSpeed);
-        }
+        arcadeKart.baseStats.ReverseSpeed -= playerPowers.initialReverseSpeed * percentOfStun;
 
         yield return new WaitForSeconds(timeStunned);
 
         arcadeKart.baseStats.TopSpeed += initialSpeed * percentOfStun;
         arcadeKart.baseStats.ReverseSpeed += initialReverseSpeed * percentOfStun;
-    }*/
+
+        GetComponent<AudioSource>().enabled = false;
+    }
     
 }
